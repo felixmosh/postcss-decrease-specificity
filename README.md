@@ -1,10 +1,12 @@
-# PostCSS Decrease Specificity [![Build Status][ci-img]][ci] [![npm](https://img.shields.io/npm/v/postcss-extract-styles.svg)](https://www.npmjs.com/package/postcss-extract-styles)
+# PostCSS Decrease Specificity [![Build Status][ci-img]][ci] [![npm](npm-img)](npm)
 
 [PostCSS] plugin that decreases the specificity of given selector.
 
 [PostCSS]: https://github.com/postcss/postcss
 [ci-img]:  https://travis-ci.org/felixmosh/postcss-decrease-specificity.svg
 [ci]:      https://travis-ci.org/felixmosh/postcss-decrease-specificity
+[npm-img]: https://img.shields.io/npm/v/postcss-decrease-specificity.svg
+[npm]:     https://www.npmjs.com/package/postcss-decrease-specificity
 [descendant combinator]: https://developer.mozilla.org/en-US/docs/Web/CSS/Descendant_selectors
 
 ```css
