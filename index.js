@@ -38,14 +38,16 @@ function decreaseSpecificityOfSelector(selector, options) {
 
     if (currentDepth > options.depth) {
         const firstClassNode = getFirstClassNode(chunks, options.depth);
-        parsedSelector.nodes[0].nodes = nodes.slice(nodes.indexOf(firstClassNode));
+        const firstClassNodeIdx = nodes.indexOf(firstClassNode);
+        parsedSelector.nodes[0].nodes = nodes.slice(firstClassNodeIdx);
     }
 
     return parsedSelector.toString();
 }
 
 function decreaseSpecificityOfRule(rule, options) {
-    rule.selectors = rule.selectors.map((selector) => decreaseSpecificityOfSelector(selector, options));
+    rule.selectors = rule.selectors
+        .map((selector) => decreaseSpecificityOfSelector(selector, options));
 }
 
 
@@ -57,8 +59,6 @@ module.exports = postcss.plugin('postcss-decrease-specificity', (opts) => {
     const options = Object.assign({}, defaults, opts);
 
     return function (root) {
-        root.walkRules((rule) => {
-            decreaseSpecificityOfRule(rule, options);
-        })
+        root.walkRules((rule) => decreaseSpecificityOfRule(rule, options));
     };
 });

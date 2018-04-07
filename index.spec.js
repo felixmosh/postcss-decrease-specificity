@@ -1,9 +1,9 @@
 const postcss = require('postcss');
-
 const plugin = require('./');
 
 function run(input, output, opts) {
-    return postcss([plugin(opts)]).process(input, {from: undefined, to: undefined})
+    return postcss([plugin(opts)])
+        .process(input, { from: undefined })
         .then(result => {
             expect(result.css).toEqual(output);
             expect(result.warnings().length).toBe(0);
@@ -12,7 +12,8 @@ function run(input, output, opts) {
 
 describe('postcss-decrease-specificity', () => {
     it('should decrease specificity - sunny case', () => {
-        return run('.a .b .c .d{ decl:1 }', '.b .c .d{ decl:1 }', {});
+        return run('.a .b .c .d{ decl:1 }',
+            '.b .c .d{ decl:1 }', {});
     });
 
     it('should decrease specificity - multiple classes', () => {
@@ -44,11 +45,12 @@ describe('postcss-decrease-specificity', () => {
     });
 
     it('should decrease specificity - consider only class selectors', () => {
-        return run('.class1 tag.class2 #id .class3 a.class3:pseudo{ decl:1 }', 'tag.class2 #id .class3 a.class3:pseudo{ decl:1 }', {});
+        return run('.class1 tag.class2 #id .class3 a.class3:pseudo{ decl:1 }',
+            'tag.class2 #id .class3 a.class3:pseudo{ decl:1 }', {});
     });
 
     it('should not change specificity if depth is lower than options.depth', () => {
-        return run('.a .b .c .d{ decl:1 }', '.a .b .c .d{ decl:1 }', {depth: 4});
+        return run('.a .b .c .d{ decl:1 }', '.a .b .c .d{ decl:1 }', { depth: 4 });
     });
 
     it('should support media query', () => {
