@@ -1,4 +1,4 @@
-# PostCSS Decrease Specificity [![Build Status][ci-img]][ci] [![npm](npm-img)](npm)
+# PostCSS Decrease Specificity [![Build Status][ci-img]][ci] [![npmStatus][npm-img]][npm]
 
 [PostCSS] plugin that decreases the specificity of given selector.
 
