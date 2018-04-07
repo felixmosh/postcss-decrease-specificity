@@ -1,0 +1,12 @@
+.npmignore
+.gitignore
+.editorconfig
+
+node_modules/
+npm-debug.log
+yarn.lock
+
+*.spec.js
+.travis.yml
+.idea/
+wallaby.js
