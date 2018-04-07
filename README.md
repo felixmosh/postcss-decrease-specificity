@@ -40,6 +40,7 @@ $ npm test
 ```
 
 ### Notes
-1. This plugin takes into consideration as `depth` only **class** selectors with **[descendant combinator]**, therefore, `.a .b .c > .d tag .f{ decl:1 }` will become `.b .c > .d tag .f{ decl:1 }`
+1. ⚠️ Use this plugin with caution, it may break your design.
+2. This plugin takes into consideration as `depth` only **class** selectors with **[descendant combinator]**, therefore, `.a .b .c > .d tag .f{ decl:1 }` will become `.b .c > .d tag .f{ decl:1 }`
 
 See [PostCSS] docs for examples for your environment.
