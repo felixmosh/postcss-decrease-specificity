@@ -25,7 +25,8 @@
     "jest": "^22.4.2"
   },
   "scripts": {
-    "test": "jest && eslint *.js"
+    "test": "eslint *.js && jest",
+    "changlog": ""
   },
   "eslintConfig": {
     "extends": "./eslint.config.js",

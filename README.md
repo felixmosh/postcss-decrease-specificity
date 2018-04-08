@@ -9,6 +9,8 @@
 [npm]:     https://www.npmjs.com/package/postcss-decrease-specificity
 [descendant combinator]: https://developer.mozilla.org/en-US/docs/Web/CSS/Descendant_selectors
 
+#### Example
+
 ```css
 .foo1 .bar1 .foo2 .bar2 {
     /* Input example */
@@ -17,6 +19,20 @@
 
 ```css
 .bar1 .foo2 .bar2 {
+  /* Output example */
+}
+```
+
+#### Complex example
+
+```css
+tag .class1 .class2 #id .class3 a.class4:pseudo {
+    /* Input example */
+}
+```
+
+```css
+.tag .class2 #id .class3 a.class4:pseudo {
   /* Output example */
 }
 ```
@@ -41,6 +57,7 @@ $ npm test
 
 ### Notes
 1. ⚠️ Use this plugin with caution, it may break your design.
-2. This plugin takes into consideration as `depth` only **class** selectors with **[descendant combinator]**, therefore, `.a .b .c > .d tag .f{ decl:1 }` will become `.b .c > .d tag .f{ decl:1 }`
+2. This plugin takes into consideration as `depth` only **class** selectors with **[descendant combinator]**, therefore,
+`.a .b .c > .d tag .f{ decl:1 }` will become `.b .c > .d tag .f{ decl:1 }`
 
 See [PostCSS] docs for examples for your environment.

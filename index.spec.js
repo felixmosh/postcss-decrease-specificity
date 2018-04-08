@@ -48,6 +48,11 @@ describe('postcss-decrease-specificity', () => {
             'tag.class2 #id .class3 a.class3:pseudo{ decl:1 }', {});
     });
 
+    it('should decrease specificity - consider only class selectors in the middle', () => {
+        return run('tag .class1 .class2 #id .class3 a.class4:pseudo{ decl:1 }',
+            'tag .class2 #id .class3 a.class4:pseudo{ decl:1 }', {});
+    });
+
     it('should not change specificity if depth is lower than options.depth', () => {
         return run('.a .b .c .d{ decl:1 }', '.a .b .c .d{ decl:1 }', { depth: 4 });
     });

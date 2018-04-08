@@ -14,32 +14,42 @@ function hasClassNode(nodes) {
     return nodes.some(isClass);
 }
 
-function getChunksByCombinator(nodes) {
+function splitByCombinator(nodes) {
     return nodes.reduce((chunks, node) => {
+        chunks[chunks.length - 1].push(node);
         if (isCombinator(node)) {
             chunks.push([]);
-        } else {
-            chunks[chunks.length - 1].push(node);
         }
         return chunks;
     }, [[]]);
 }
 
-function getFirstClassNode(chunks, depth) {
-    const onlyClassesChunks = chunks.filter(hasClassNode);
-    return (onlyClassesChunks.length > depth ? onlyClassesChunks.slice(depth * -1) : chunks)[0][0];
+function getDeletableClasses(chunks, requiredDepth) {
+    let numOfClasses = 0;
+    return chunks
+        .reverse()
+        .reduce((acc, node) => {
+            if (hasClassNode(node) && numOfClasses < requiredDepth) {
+                numOfClasses++;
+            } else if (hasClassNode(node)) {
+                acc.push(node);
+            }
+            return acc;
+        }, [])
+        .reverse()
+        .reduce((acc, node) => acc.concat(node), []);
 }
 
 function decreaseSpecificityOfSelector(selector, options) {
     const parsedSelector = parse.astSync(selector);
     const nodes = parsedSelector.nodes[0].nodes;
-    const chunks = getChunksByCombinator(nodes);
-    const currentDepth = chunks.length;
+    const chunks = splitByCombinator(nodes);
+    const currentDepth = chunks.filter(hasClassNode).length;
 
     if (currentDepth > options.depth) {
-        const firstClassNode = getFirstClassNode(chunks, options.depth);
-        const firstClassNodeIdx = nodes.indexOf(firstClassNode);
-        parsedSelector.nodes[0].nodes = nodes.slice(firstClassNodeIdx);
+        const deletableClasses = getDeletableClasses(chunks, options.depth);
+        parsedSelector.nodes[0].nodes = nodes
+            .filter((node) => deletableClasses.indexOf(node) === -1);
     }
 
     return parsedSelector.toString();
