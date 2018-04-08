@@ -12,8 +12,7 @@ function run(input, output, opts) {
 
 describe('postcss-decrease-specificity', () => {
     it('should decrease specificity - sunny case', () => {
-        return run('.a .b .c .d{ decl:1 }',
-            '.b .c .d{ decl:1 }', {});
+        return run('.a .b .c .d{ decl:1 }', '.b .c .d{ decl:1 }', {});
     });
 
     it('should decrease specificity - multiple classes', () => {
