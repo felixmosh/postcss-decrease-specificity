@@ -32,7 +32,7 @@ tag .class1 .class2 #id .class3 a.class4:pseudo {
 ```
 
 ```css
-.tag .class2 #id .class3 a.class4:pseudo {
+tag .class2 #id .class3 a.class4:pseudo {
   /* Output example */
 }
 ```
